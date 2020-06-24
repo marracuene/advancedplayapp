@@ -1,0 +1,38 @@
+plugins {
+    id 'org.gradle.playframework' version '0.9'
+}
+
+test {
+    //maxParallelForks = 1
+}
+
+// repositories COPY-PASTED from PlayApp class
+//  which itself refers to: org.gradle.playframework.fixtures.Repositories.playRepositories
+
+repositories {
+    jcenter()
+    maven {
+        name "lightbend-maven-release"
+        url "https://repo.lightbend.com/lightbend/maven-releases"
+    }
+    ivy {
+        name "lightbend-ivy-release"
+        url "https://repo.lightbend.com/lightbend/ivy-releases"
+        layout "ivy"
+    }
+}
+
+sourceSets {
+    main {
+        twirl {
+            defaultImports = org.gradle.playframework.sourcesets.TwirlImports.JAVA
+            srcDir "templates"
+            include "jva/**/*"
+        }
+    }
+}
+
+dependencies {
+    implementation "com.typesafe.play:play-guice_2.12:2.6.15"
+    implementation "ch.qos.logback:logback-classic:1.2.3"
+}
